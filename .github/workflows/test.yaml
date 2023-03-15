@@ -1,0 +1,45 @@
+name: Test Scenarios
+on:
+  push:
+    branches:
+      - 'main'
+      - '[0-9]+.[1-9][0-9]*.x'
+  pull_request:
+    branches:
+      - 'main'
+      - '[0-9]+.[1-9][0-9]*.x'
+      - 'epic/*'
+    paths-ignore:
+      - "docs/**"
+      - "**.md"
+      - "netlify.toml"
+
+env:
+  # renovate: datasource=github-tags depName=kudobuilder/kuttl
+  KUTTL_VERSION: "v0.15.0"
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  run-scenarios:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: "Create kind Cluster"
+        uses: helm/kind-action@v1.5.0
+
+      - name: Download KUTTL
+        run: |
+          curl -fL https://github.com/kudobuilder/kuttl/releases/download/${{ env.KUTTL_VERSION }}/kubectl-kuttl_${KUTTL_VERSION#v}_linux_x86_64 -o kubectl-kuttl
+          chmod +x kubectl-kuttl
+          mv kubectl-kuttl /usr/local/bin
+
+      - name: Run Tests
+        working-directory: .
+        run: make test
