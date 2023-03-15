@@ -1,0 +1,131 @@
+apiVersion: core.oam.dev/v1beta1
+kind: Application
+metadata:
+  name: podtato-head
+spec:
+  components:
+    - name: podtato-head-service-discovery
+      type: k8s-objects
+      properties:
+        objects:
+          - apiVersion: v1
+            kind: ConfigMap
+            metadata:
+              name: podtato-head-discovery
+            data:
+              servicesConfig.yaml: |
+                hat:       "http://podtato-head-hat:8080"
+                left-leg:  "http://podtato-head-left-leg:8080"
+                left-arm:  "http://podtato-head-left-arm:8080"
+                right-leg: "http://podtato-head-right-leg:8080"
+                right-arm: "http://podtato-head-right-arm:8080"
+    - name: podtato-head-frontend
+      type: webservice
+      properties:
+        image: ghcr.io/podtato-head/podtato-server:v0.3.0
+        volumes:
+          - name: service-discovery-map
+            type: configMap
+            cmName: podtato-head-discovery
+            mountPath: /config
+        ports:
+          - port: 8080
+            expose: true
+        env:
+          - name: PODTATO_COMPONENT
+            value: frontend
+          - name: SERVICES_CONFIG_FILE_PATH
+            value: /config/servicesConfig.yaml
+        exposeType: ClusterIP
+        cpu: "0.1"
+        memory: "32Mi"
+      traits:
+        - type: scaler
+          properties:
+            replicas: 1
+
+    - name: podtato-head-hat
+      type: webservice
+      properties:
+        image: ghcr.io/podtato-head/podtato-server:v0.3.0
+        ports:
+          - port: 8080
+            expose: true
+        env:
+          - name: PODTATO_COMPONENT
+            value: hat
+        exposeType: ClusterIP
+        cpu: "0.1"
+        memory: "32Mi"
+      traits:
+        - type: scaler
+          properties:
+            replicas: 1
+    - name: podtato-head-left-leg
+      type: webservice
+      properties:
+        image: ghcr.io/podtato-head/podtato-server:v0.3.0
+        ports:
+          - port: 8080
+            expose: true
+        env:
+          - name: PODTATO_COMPONENT
+            value: left-leg
+        exposeType: ClusterIP
+        cpu: "0.1"
+        memory: "32Mi"
+      traits:
+        - type: scaler
+          properties:
+            replicas: 1
+    - name: podtato-head-right-leg
+      type: webservice
+      properties:
+        image: ghcr.io/podtato-head/podtato-server:v0.3.0
+        ports:
+          - port: 8080
+            expose: true
+        env:
+          - name: PODTATO_COMPONENT
+            value: right-leg
+        exposeType: ClusterIP
+        cpu: "0.1"
+        memory: "32Mi"
+      traits:
+        - type: scaler
+          properties:
+            replicas: 1
+    - name: podtato-head-left-arm
+      type: webservice
+      properties:
+        image: ghcr.io/podtato-head/podtato-server:v0.3.0
+        ports:
+          - port: 8080
+            expose: true
+        env:
+          - name: PODTATO_COMPONENT
+            value: left-arm
+        exposeType: ClusterIP
+        cpu: "0.1"
+        memory: "32Mi"
+      traits:
+        - type: scaler
+          properties:
+            replicas: 1
+    - name: podtato-head-right-arm
+      type: webservice
+      properties:
+        image: ghcr.io/podtato-head/podtato-server:v0.3.0
+        ports:
+          - port: 8080
+            expose: true
+        env:
+          - name: PODTATO_COMPONENT
+            value: right-arm
+        exposeType: ClusterIP
+        cpu: "0.1"
+        memory: "32Mi"
+      traits:
+        - type: scaler
+          properties:
+            replicas: 1

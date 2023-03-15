@@ -1,0 +1,7 @@
+apiVersion: core.oam.dev/v1beta1
+kind: Application
+metadata:
+  name: podtato-head
+  namespace: podtato-vela
+status:
+  status: running
