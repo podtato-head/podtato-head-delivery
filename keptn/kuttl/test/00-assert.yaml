@@ -1,0 +1,13 @@
+apiVersion: lifecycle.keptn.sh/v1alpha2
+kind: KeptnAppVersion
+metadata:
+  name: podtato-head-0.1.0-1
+  namespace: podtato-kubectl
+status:
+  currentPhase: Completed
+  postDeploymentEvaluationStatus: Succeeded
+  postDeploymentStatus: Succeeded
+  preDeploymentEvaluationStatus: Succeeded
+  preDeploymentStatus: Succeeded
+  status: Succeeded
+  workloadOverallStatus: Succeeded
