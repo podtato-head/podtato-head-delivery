@@ -1,0 +1,77 @@
+containers: {
+  frontend: {
+    image: "ghcr.io/podtato-head/podtato-server:v0.3.0"
+    ports: "8080/tcp"
+    env: {
+      "PODTATO_COMPONENT": "frontend"
+      "SERVICES_CONFIG_FILE_PATH": "/config/service-discovery.yaml"
+    }
+    files: {
+      "/config/service-discovery.yaml": "secret://service-discovery/template"
+    }
+  }
+  hat: {
+    image: "ghcr.io/podtato-head/podtato-server:v0.3.0"
+    ports: "8080/tcp"
+    env: {
+      "PODTATO_COMPONENT": "hat"
+      "PODTATO_PART_NUMBER": "02"
+    }
+  }
+  leftarm: {
+    image: "ghcr.io/podtato-head/podtato-server:v0.3.0"
+    ports: "8080/tcp"
+    env: {
+      "PODTATO_COMPONENT": "left-arm"
+      "PODTATO_PART_NUMBER": "03"
+    }
+  }
+  rightarm: {
+    image: "ghcr.io/podtato-head/podtato-server:v0.3.0"
+    ports: "8080/tcp"
+    env: {
+      "PODTATO_COMPONENT": "right-arm"
+      "PODTATO_PART_NUMBER": "01"
+    }
+  }
+  leftleg: {
+    image: "ghcr.io/podtato-head/podtato-server:v0.3.0"
+    ports: "8080/tcp"
+    env: {
+      "PODTATO_COMPONENT": "left-leg"
+      "PODTATO_PART_NUMBER": "02"
+    }
+  }
+  rightleg: {
+    image: "ghcr.io/podtato-head/podtato-server:v0.3.0"
+    ports: "8080/tcp"
+    env: {
+      "PODTATO_COMPONENT": "right-leg"
+      "PODTATO_PART_NUMBER": "04"
+    }
+  }
+}
+
+secrets: {
+    "service-discovery": {
+        type: "template"
+        data: {
+            template: """
+            hat: http://hat:8080
+            left-arm: http://leftarm:8080
+            right-arm: http://rightarm:8080
+            left-leg: http://leftleg:8080
+            right-leg: http://rightleg:8080
+            """
+        }
+    }
+}
+
+jobs: {
+    "test-app": {
+        image: "busybox"
+        command: [ "wget", "-q", "--tries=10", "-timeout=5", "-O", "-", "http://frontend:8080" ]
+        dependsOn: [ "frontend", "hat", "leftleg", "rightleg", "leftarm", "rightarm" ]
+    }
+}
+

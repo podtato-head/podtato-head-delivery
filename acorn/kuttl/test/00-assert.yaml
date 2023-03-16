@@ -1,0 +1,61 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hat
+  namespace: podtato-acorn
+status:
+  readyReplicas: 1
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: leftleg
+  namespace: podtato-acorn
+status:
+  readyReplicas: 1
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rightleg
+  namespace: podtato-acorn
+status:
+  readyReplicas: 1
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: leftarm
+  namespace: podtato-acorn
+status:
+  readyReplicas: 1
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rightarm
+  namespace: podtato-acorn
+status:
+  readyReplicas: 1
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend
+  namespace: podtato-acorn
+status:
+  readyReplicas: 1
+
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: test-app
+  namespace: podtato-acorn
+status:
+  succeeded: 1
