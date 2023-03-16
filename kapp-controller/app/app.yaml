@@ -1,0 +1,19 @@
+apiVersion: kappctrl.k14s.io/v1alpha1
+kind: App
+metadata:
+  name: podtato-kappctl
+  namespace: podtato-kappctl
+spec:
+  serviceAccountName: default-ns-sa
+  fetch:
+    - git:
+        url: https://github.com/podtato-head/podtato-head-app.git
+        ref: v0.3.1
+        subPath: chart
+
+  template:
+    - helmTemplate:
+        namespace: podtato-kappctl
+
+  deploy:
+    - kapp: {}

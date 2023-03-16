@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: podtato-head-hat
+  namespace: podtato-kapp
+status:
+  readyReplicas: 1
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: podtato-head-left-leg
+  namespace: podtato-kapp
+status:
+  readyReplicas: 1
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: podtato-head-right-leg
+  namespace: podtato-kapp
+status:
+  readyReplicas: 1
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: podtato-head-left-arm
+  namespace: podtato-kapp
+status:
+  readyReplicas: 1
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: podtato-head-right-arm
+  namespace: podtato-kapp
+status:
+  readyReplicas: 1
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: podtato-head-frontend
+  namespace: podtato-kapp
+status:
+  readyReplicas: 1
