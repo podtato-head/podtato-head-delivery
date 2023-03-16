@@ -13,7 +13,7 @@ You can install the kapp CLI using the following command:
 ```bash
 mkdir kapp-bin/
 curl -L https://carvel.dev/install.sh | K14SIO_INSTALL_BIN_DIR=kapp-bin bash
-export PATH=$PWD/local-bin/:$PATH
+export PATH=$$PWD/local-bin/:$$PATH
 kapp version
 ```
 
