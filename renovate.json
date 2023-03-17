@@ -2,24 +2,11 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
     "config:base",
-    ":gitSignOff",
-    "schedule:nonOfficeHours",
-    ":semanticCommitTypeAll(deps)",
-    ":semanticCommitScope()",
-    "group:monorepos",
-    ":automergePatch"
   ],
   "addLabels": [
     "dependencies"
   ],
-  "cloneSubmodules": true,
-  "prConcurrentLimit": 15,
-  "stabilityDays": 3,
-  "timezone": "Europe/Vienna",
-  "postUpdateOptions": [
-    "gomodTidy",
-    "gomodMassage"
-  ],
+  "semanticCommits": "enabled",
   "regexManagers": [
     {
       "fileMatch": [
