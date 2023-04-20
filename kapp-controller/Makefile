@@ -2,7 +2,7 @@ PODTATO_HEAD_VERSION ?= v0.3.0
 
 .PHONY: install
 install:
-	kubectl apply -f https://github.com/vmware-tanzu/carvel-kapp-controller/releases/latest/download/release.yml
+	kubectl apply -f https://github.com/carvel-dev/kapp-controller/releases/latest/download/release.yml
 
 .PHONY: uninstall
 uninstall:
