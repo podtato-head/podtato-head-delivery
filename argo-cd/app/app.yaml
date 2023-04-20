@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: podtato-head
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/podtato-head/podtato-head-app.git
+    targetRevision: v0.3.0
+    path: chart
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: podtato-helm
+  syncPolicy:
+    automated:
+      selfHeal: true
+      prune: true
+    syncOptions:
+      - CreateNamespace=true
