@@ -9,7 +9,7 @@ uninstall:
 	kubectl delete -f app/app.yaml --ignore-not-found=true
 	kubectl delete -f app/rbac.yaml --ignore-not-found=true
 	kubectl delete ns podtato-kappctl --ignore-not-found=true
-	kubectl delete -f https://github.com/vmware-tanzu/carvel-kapp-controller/releases/latest/download/release.yml --force --ignore-not-found=true
+	kubectl delete -f https://github.com/carvel-dev/kapp-controller/releases/latest/download/release.yml --force --ignore-not-found=true
 
 .PHONY: deploy-app
 deploy-app:
