@@ -10,4 +10,19 @@ Each delivery scenario includes a walkthrough (README.md) describing how to
 * deliver podtato-head using the infrastructure
 * And test that podtato-head is operating as expected.
 
-Each delivery scenario also includes a test (test.sh) which automates the steps described in the walkthrough. You can pause a test after tests run and before teardown by setting the env var WAIT_FOR_DELETE=1, as in WAIT_FOR_DELETE=1 ./delivery/flux/test.sh. This lets you examine what the README and scripts do.
+Each delivery scenario also includes a test (`make test`) which automates the steps described in the walkthrough. You can pause a test after tests run and before teardown by setting the env var WAIT_FOR_DELETE=1, as in WAIT_FOR_DELETE=1 ./delivery/flux/test.sh. This lets you examine what the README and scripts do.
+
+## Contribute
+If you have a delivery scenario you'd like to add, please submit a pull request. We'd love to see what you've done!
+
+We provided a template for you (./delivery_template). You can simply prepare this for your service using `make new-scenario NAME=<YOUR_SERVICE_NAME>`.
+
+Then you can proceed as follows:
+* Create the Walkthrough in your README.md
+* Automate the steps (install, deliver, uninstall) in the Makefile
+* Write a test script which runs the steps in the Makefile and verifies the result. Currently we are supporting KUTTL and shell scripts in our test framework. If you need additional tools, please open up an issue.
+* Test your scenario by running `make test` in the root directory of the repository.
+* Submit a pull request
+* Ensure that your scenario is tested in the CI pipeline and everything works
+* Celebrate!
+
