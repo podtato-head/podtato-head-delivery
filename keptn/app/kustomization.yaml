@@ -1,0 +1,7 @@
+resources:
+- https://github.com/podtato-head/podtato-head-app/releases/download/v0.3.0/manifest.yaml
+- app.yaml
+
+patchesStrategicMerge:
+- manifest.yaml
+   
