@@ -1,0 +1,29 @@
+deployments:
+  - path: namespace
+  - barrier: true # ensure namespaces are deployed before we try to deploy anything into them
+  - path: misc
+  - path: frontend
+  - path: template-service # hat
+    vars:
+      - values:
+          service:
+            component: hat
+            port: 9001
+  - path: template-service # left-leg
+    when: legs_enabled     # but legs are only deployed if the target has legs enabled
+    vars:
+      - values:
+          service:
+            component: left-leg
+            port: 9002
+  - path: template-service # left-arm
+    vars:
+      - values:
+          service:
+            component: left-arm
+            port: 9003
+  - path: template-service # right-leg
+    when: legs_enabled     # but legs are only deployed if the target has legs enabled
+    vars: [{"values": {"service": {"component": "right-leg", "port": 9004}}}] # we can also use json here
+  - path: template-service # right-arm
+    vars: [{"values": {"service": {"component": "right-arm", "port": 9005}}}] # we can also use json here

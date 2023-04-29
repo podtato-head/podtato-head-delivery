@@ -1,0 +1,46 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: podtato-head-{{ service.component }}
+  labels:
+    app.kubernetes.io/name: podtato-head
+    app.kubernetes.io/component: {{ service.component }}
+spec:
+  replicas: {{ replicas[service.component] }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: podtato-head
+      app.kubernetes.io/component: {{ service.component }}
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: podtato-head
+        app.kubernetes.io/component: {{ service.component }}
+    spec:
+      terminationGracePeriodSeconds: 5
+      serviceAccountName: podtato-head
+      containers:
+        - name: podtato-head-{{ service.component }}
+          image: {{ "%s:%s "% (podtato.image_name, podtato.tag) }}
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 8080
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: http
+          resources: {}
+          env:
+          - name: PODTATO_COMPONENT
+            value: {{ service.component }}
+          - name: POD_NAME
+            valueFrom:
+              fieldRef:
+                fieldPath: metadata.name

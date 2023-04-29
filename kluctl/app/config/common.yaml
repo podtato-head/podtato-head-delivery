@@ -1,0 +1,13 @@
+replicas:
+  frontend: 1
+  hat: 1
+  left-arm: 1
+  left-leg: 1
+  right-arm: 1
+  right-leg: 1
+
+legs_enabled: true
+
+podtato:
+  image_name: {{ args.image_name }}
+  tag: {{ args.image_version }}

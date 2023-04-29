@@ -1,0 +1,8 @@
+replicas:
+  # prod needs a bit more redundancy :)
+  frontend: 3
+
+podtato:
+  image_name: ghcr.io/podtato-head/podtato-server
+  # one version below the default version...we're on prod, so we're extra cautious :)
+  tag: v0.3.0
