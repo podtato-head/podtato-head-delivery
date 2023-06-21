@@ -1,5 +1,5 @@
 # renovate: datasource=github-tags depName=keptn/lifecycle-toolkit
-KEPTN_VERSION ?= v0.6.0
+KEPTN_VERSION ?= v0.8.0
 
 .PHONY: install
 install:
