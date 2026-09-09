@@ -1,5 +1,5 @@
 # renovate: datasource=github-tags depName=acorn-io/acorn
-ACORN_VERSION ?= v0.6.0
+ACORN_VERSION ?= v0.25.5
 
 .PHONY: install
 install:
